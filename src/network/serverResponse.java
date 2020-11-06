@@ -115,7 +115,7 @@ public class serverResponse implements Runnable {
             if (!rq.equals(FAVICON)) {
                 if (rq.equals(TEST1_HTML)) {
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/test1.html");
-                    postHTML(index, cookie, false);
+                    postImg(index);
                 } else if (rq.equals(TEST2_HTML)) {
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/test2.html");
                     postHTML(index, cookie, false);
@@ -139,12 +139,12 @@ public class serverResponse implements Runnable {
 
 
             out.println(OK);
-            out.println(imgType);
+            out.println(htmlType);
             out.println("Content-Length: " + index.length());
             out.write(ENDLINE);
-            out.close();
+            out.flush();
             imgOut.write(imgData, 0, (int)index.length());
-            imgOut.close();
+            imgOut.flush();
 
         } catch (IOException e){
             e.printStackTrace();
