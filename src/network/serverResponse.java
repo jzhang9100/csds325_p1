@@ -136,14 +136,14 @@ public class serverResponse implements Runnable {
             imgIn.read(imgData);
 
             BufferedOutputStream imgOut = new BufferedOutputStream(connectionSocket.getOutputStream());
-            imgOut.write(imgData, 0, (int)index.length());
-            imgOut.flush();
-            /*
+
+
             out.println(OK);
             out.println(imgType);
             out.println("Content-Length: " + index.length());
-            out.println(ENDLINE);
-            out.close();*/
+            imgOut.write(imgData, 0, (int)index.length());
+            imgOut.flush();
+            out.close();
 
         } catch (IOException e){
             e.printStackTrace();
