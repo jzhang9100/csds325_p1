@@ -12,6 +12,7 @@ public class serverResponse implements Runnable {
     static final String img = "/img/amazon.jpg";
     static final String FAVICON = "/favicon.ico";
     static final String ID = "/cxz416";
+    static final String MY_COOKIE_HEADER = "325_p1_visit_cnt";
 
     static final String VALID = "HostNameValid";
     static final String INVALID = "HostNameInvalid";
@@ -143,21 +144,24 @@ public class serverResponse implements Runnable {
 
     private void postHTML(File index, String cookie, boolean display) throws IOException {
         String[] cookies = cookie.split(" ");
+        String my_cookie = null;
         for(String st : cookies){
-            System.out.println(st);
+            if(st.substring(0, MY_COOKIE_HEADER.length()).equals(MY_COOKIE_HEADER)){
+                my_cookie = st;
+                break;
+            }
         }
         BufferedReader reader = new BufferedReader(new FileReader(index));
         out.println(OK);
         out.println(htmlType);
         out.println("Content-Length: " + index.length());
         int cookie_cnt;
-        if(cookie == null){
+        if(my_cookie == null){
             out.println("Set-Cookie: 325_p1_visit_cnt=1");
             cookie_cnt = 1;
-            System.out.println("Set-Cookie: 325_p1_visit_cnt=1");
         } else{
-            int indx = cookie.indexOf('=');
-            String cnt = cookie.substring(indx+1);
+            int indx = my_cookie.indexOf('=');
+            String cnt = my_cookie.substring(indx+1);
             cookie_cnt = (Integer.parseInt(cnt) + 1);
             String incr_cnt = Integer.toString(cookie_cnt);
             String incr_cookie = "Set-Cookie: 325_p1_visit_cnt=" + incr_cnt;
