@@ -15,7 +15,7 @@ public class serverResponse implements Runnable {
     static final String VALID = "HostNameValid";
     static final String INVALID = "HostNameInvalid";
 
-    static final String ERROR_PATH = "src/static/misc/error.html";
+    static final String ERROR_PATH = "/home/cxz416/csds325_p1/src/static/misc/error.html";
     static final File ERROR_FILE = new File(ERROR_PATH);
     BufferedReader ERROR_READER = new BufferedReader(new FileReader(ERROR_FILE));
 
