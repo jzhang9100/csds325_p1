@@ -53,7 +53,7 @@ public class serverResponse implements Runnable {
             protocol = new netProtocol();
             while (true) {
                 inMessage = in.readLine();
-                System.out.println(inMessage);
+                //System.out.println(inMessage);
                 if(inMessage == null){
                     break;
                 }
@@ -142,21 +142,25 @@ public class serverResponse implements Runnable {
     }
 
     private void postHTML(File index, String cookie, boolean display) throws IOException {
+        String[] cookies = cookie.split(" ");
+        for(String st : cookies){
+            System.out.println(st);
+        }
         BufferedReader reader = new BufferedReader(new FileReader(index));
         out.println(OK);
         out.println(htmlType);
         out.println("Content-Length: " + index.length());
         int cookie_cnt;
         if(cookie == null){
-            out.println("Set-Cookie: visit_cnt=1");
+            out.println("Set-Cookie: 325_p1_visit_cnt=1");
             cookie_cnt = 1;
-            System.out.println("Set-Cookie: visit_cnt=1");
+            System.out.println("Set-Cookie: 325_p1_visit_cnt=1");
         } else{
             int indx = cookie.indexOf('=');
             String cnt = cookie.substring(indx+1);
             cookie_cnt = (Integer.parseInt(cnt) + 1);
             String incr_cnt = Integer.toString(cookie_cnt);
-            String incr_cookie = "Set-Cookie: visit_cnt=" + incr_cnt;
+            String incr_cookie = "Set-Cookie: 325_p1_visit_cnt=" + incr_cnt;
             out.println(incr_cookie);
         }
         out.println(ENDLINE);
