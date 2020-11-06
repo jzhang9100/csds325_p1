@@ -154,13 +154,15 @@ public class serverResponse implements Runnable {
 
     private void postHTML(File index, String cookie, boolean display) throws IOException {
         String my_cookie = null;
-        if(cookie.indexOf(" ") != -1) {
-            String[] cookies = cookie.split(" ");
-            for (String st : cookies) {
-                if (st.length() > MY_COOKIE_HEADER.length()) {
-                    if (st.substring(0, MY_COOKIE_HEADER.length()).equals(MY_COOKIE_HEADER)) {
-                        my_cookie = st;
-                        break;
+        if(cookie != null) {
+            if (cookie.indexOf(" ") != -1) {
+                String[] cookies = cookie.split(" ");
+                for (String st : cookies) {
+                    if (st.length() > MY_COOKIE_HEADER.length()) {
+                        if (st.substring(0, MY_COOKIE_HEADER.length()).equals(MY_COOKIE_HEADER)) {
+                            my_cookie = st;
+                            break;
+                        }
                     }
                 }
             }
