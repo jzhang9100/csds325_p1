@@ -23,7 +23,7 @@ public class serverResponse implements Runnable {
 
     static final String OK = "HTTP/1.1 200";
     static final String htmlType = "Content-Type: text/html";
-    static final String imgType = "Content-Type: image/jpeg";
+    static final String imgType = "Content-Type: image/jpg";
     static final String closed = "Connection: Closed";
     static final String NO = "404 Not Found";
     static final String ENDLINE = "\r\n";
