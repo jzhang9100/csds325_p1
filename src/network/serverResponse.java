@@ -9,7 +9,7 @@ public class serverResponse implements Runnable {
     static final String TEST1_HTML = "/test1.html";
     static final String TEST2_HTML = "/test2.html";
     static final String VISITS_HTML = "/visits.html";
-    static final String img = "/img/amazon.jpg";
+    static final String img = "/home/cxz416/csds325_p1/src/static/img/amazon.jpg";
     static final String FAVICON = "/favicon.ico";
     static final String ID = "/cxz416";
     static final String MY_COOKIE_HEADER = "325_p1_visit_cnt";
