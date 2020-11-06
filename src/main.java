@@ -13,7 +13,7 @@ public class main {
         FileInputStream ip = new FileInputStream("/home/cxz416/csds325_p1/src/static/config.properties");
 
         prop.load(ip);
-        int port = (int) prop.get("port");
-        (new Thread(new HTTPServer(port))).start();
+        String port = (String) prop.get("port");
+        (new Thread(new HTTPServer(Integer.parseInt(port)))).start();
     }
 }
