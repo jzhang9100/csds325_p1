@@ -102,11 +102,15 @@ public class serverResponse implements Runnable {
 
     private void processRequest(String GET, String cookie) throws IOException {
         String rq = processGetRequestHeader(GET);
-        if(!rq.substring(0,ID.length()).equals(ID)){
+        System.out.println(rq);
+        //check if the get is for our stored image
+        if(rq.equals(img)){
+            File imgData = new File("/home/cxz416/csds325_p1/src/static/img/amazon.jpg");
+            postImg(imgData);
+        }else if(!rq.substring(0,ID.length()).equals(ID)){ //other wise, only serve the request if it is one of the three cases described in instructions
             postErrorPage();
         } else {
             rq = rq.substring(ID.length());
-            System.out.println(rq);
             File index;
             if (!rq.equals(FAVICON)) {
                 if (rq.equals(TEST1_HTML)) {
@@ -118,9 +122,6 @@ public class serverResponse implements Runnable {
                 } else if (rq.equals(VISITS_HTML)) {
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/visits.html");
                     postHTML(index, cookie, true);
-                } else if (rq.equals(img)) {
-                    index = new File("/home/cxz416/csds325_p1/src/static/img/amazon.jpg");
-                    postImg(index);
                 } else {
                     postErrorPage();
                 }
