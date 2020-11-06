@@ -178,7 +178,13 @@ public class serverResponse implements Runnable {
             cookie_cnt = 1;
         } else{
             int indx = my_cookie.indexOf('=');
-            String cnt = my_cookie.substring(indx+1, my_cookie.length()-1);
+
+            String cnt;
+            if(my_cookie.charAt(my_cookie.length()-1) == ';'){
+                cnt = my_cookie.substring(indx+1, my_cookie.length()-1);
+            } else{
+                cnt = my_cookie.substring(indx+1);
+            }
             cookie_cnt = (Integer.parseInt(cnt) + 1);
             String incr_cnt = Integer.toString(cookie_cnt);
             String incr_cookie = "Set-Cookie: 325_p1_visit_cnt=" + incr_cnt;
