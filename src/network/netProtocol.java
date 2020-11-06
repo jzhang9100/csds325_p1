@@ -1,7 +1,7 @@
 package network;
 
 public class netProtocol {
-    static final String HOSTNAMEPREFIX = "localhost";
+    static final String HOSTNAMEPREFIX = "eecslab-10.case.edu:50085";
     static final String VALID = "HostNameValid";
     static final String INVALID = "HostNameInvalid";
     static final String IGNORE = "IGNORE";
