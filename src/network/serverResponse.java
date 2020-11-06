@@ -15,7 +15,7 @@ public class serverResponse implements Runnable {
     static final String VALID = "HostNameValid";
     static final String INVALID = "HostNameInvalid";
 
-    static final String ERROR_PATH = "/home/cxz416/csds325_p1/src/static/misc/error.html";
+    static final String ERROR_PATH = "home/cxz416/csds325_p1/src/static/misc/error.html";
     static final File ERROR_FILE = new File(ERROR_PATH);
     BufferedReader ERROR_READER = new BufferedReader(new FileReader(ERROR_FILE));
 
@@ -103,16 +103,16 @@ public class serverResponse implements Runnable {
         File index;
         if(!rq.equals(FAVICON)) {
             if (rq.equals(TEST1_HTML)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/misc/test1.html");
+                index = new File("home/cxz416/csds325_p1/src/static/misc/test1.html");
                 postHTML(index, cookie, false);
             } else if (rq.equals(TEST2_HTML)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/misc/test2.html");
+                index = new File("home/cxz416/csds325_p1/src/static/misc/test2.html");
                 postHTML(index, cookie, false);
             } else if (rq.equals(VISITS_HTML)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/misc/visits.html");
+                index = new File("home/cxz416/csds325_p1/src/static/misc/visits.html");
                 postHTML(index, cookie, true);
             } else if (rq.equals(img)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/img/amazon.jpg");
+                index = new File("home/cxz416/csds325_p1/src/static/img/amazon.jpg");
                 postImg(index);
             } else {
                 postErrorPage();
