@@ -15,7 +15,7 @@ public class HTTPServer implements Runnable {
 
     public HTTPServer() throws IOException {
         //parse config
-        listeningSocket = new ServerSocket(5555);
+        listeningSocket = new ServerSocket(50085);
     }
 
     @Override
