@@ -6,6 +6,9 @@ import java.io.*;
 import java.net.Socket;
 
 public class serverResponse implements Runnable {
+    /*
+    Static messages/responses/protocols/absolute directories
+    * */
     static final String TEST1_HTML = "/test1.html";
     static final String TEST2_HTML = "/test2.html";
     static final String VISITS_HTML = "/visits.html";
@@ -36,10 +39,12 @@ public class serverResponse implements Runnable {
     BufferedReader in;
     netProtocol protocol;
 
+    //set connection socket on construction
     public serverResponse(Socket connetionSocket) throws FileNotFoundException {
         this.connectionSocket = connetionSocket;
     }
 
+    //method that is ran by thread
     @Override
     public void run() {
         String inMessage;
@@ -52,6 +57,7 @@ public class serverResponse implements Runnable {
             this.in = new BufferedReader(new InputStreamReader(this.connectionSocket.getInputStream()));
             this.out = new PrintWriter(connectionSocket.getOutputStream());
             protocol = new netProtocol();
+            //parses incomming header data, pass that to netProtocol to extract information about headers
             while (true) {
                 inMessage = in.readLine();
                 //System.out.println(inMessage);
@@ -62,7 +68,7 @@ public class serverResponse implements Runnable {
                 String response = protocol.parseHeaderInfo(inMessage);
                 //System.out.println("READ..." + inMessage + "        RESPONSE..." + response);
 
-                if(response.equals(VALID)){
+                if(response.equals(VALID)){ //check if hostname valid
                     validURL = true;
                 } else if(response.equals(INVALID)){
                     postErrorPage();
@@ -78,7 +84,7 @@ public class serverResponse implements Runnable {
                     cookie = inMessage;
                 }
 
-                if(inMessage.length() == 0){
+                if(inMessage.length() == 0){ //when all headers have been parsed, we need to come up with an appropriate response to POST back
                     if(validURL && getRequest){
                         processRequest(GET, cookie);
                     } else{
@@ -113,22 +119,22 @@ public class serverResponse implements Runnable {
             rq = rq.substring(ID.length());
             File index;
             if (!rq.equals(FAVICON)) {
-                if (rq.equals(TEST1_HTML)) {
+                if (rq.equals(TEST1_HTML)) { //request is for test1.html
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/test1.html");
                     postHTML(index, cookie, false);
-                } else if (rq.equals(TEST2_HTML)) {
+                } else if (rq.equals(TEST2_HTML)) { //request is for test2.html
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/test2.html");
                     postHTML(index, cookie, false);
-                } else if (rq.equals(VISITS_HTML)) {
+                } else if (rq.equals(VISITS_HTML)) {//request is for test3.html
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/visits.html");
                     postHTML(index, cookie, true);
-                } else {
+                } else { //otherwise 404 error
                     postErrorPage();
                 }
             }
         }
     }
-    private void postImg(File index) {
+    private void postImg(File index) { //convert image data to bytes and stream it back
         FileInputStream imgIn = null;
         byte[] imgData = new byte[(int)index.length()];
         try {
@@ -153,6 +159,7 @@ public class serverResponse implements Runnable {
     }
 
     private void postHTML(File index, String cookie, boolean display) throws IOException {
+        //check cookie situation and increase our count accordingly without messing with pre existing cookies
         String my_cookie = null;
         if(cookie != null) {
             if (cookie.indexOf(" ") != -1) {
@@ -172,6 +179,8 @@ public class serverResponse implements Runnable {
         out.println(htmlType);
         out.println(closed);
         out.println("Content-Length: " + index.length());
+
+        //deal with cookie
         int cookie_cnt;
         if(my_cookie == null){
             out.println("Set-Cookie: 325_p1_visit_cnt=1");
@@ -190,6 +199,7 @@ public class serverResponse implements Runnable {
             String incr_cookie = "Set-Cookie: 325_p1_visit_cnt=" + incr_cnt;
             out.println(incr_cookie);
         }
+
         out.println(ENDLINE);
         if(display){
             postHTMLDynamic(reader, cookie_cnt);
@@ -198,7 +208,7 @@ public class serverResponse implements Runnable {
         }
     }
 
-    private void postErrorPage() throws IOException {
+    private void postErrorPage() throws IOException { //loads error.html for 404 error
         out.println(OK);
         System.out.println(NO);
         out.println(htmlType);
@@ -213,7 +223,7 @@ public class serverResponse implements Runnable {
         ERROR_READER.close();
     }
 
-    private void postHTMLStatic(BufferedReader reader) throws IOException {
+    private void postHTMLStatic(BufferedReader reader) throws IOException { //post static html
         String htmlLine = reader.readLine();
         while (htmlLine != null) {
             out.println(htmlLine);
