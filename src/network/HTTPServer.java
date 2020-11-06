@@ -13,9 +13,9 @@ public class HTTPServer implements Runnable {
 
     ServerSocket listeningSocket;
 
-    public HTTPServer() throws IOException {
-        //parse config
-        listeningSocket = new ServerSocket(50085);
+    public HTTPServer(int port) throws IOException {
+        System.out.println(port);
+        listeningSocket = new ServerSocket(port);
     }
 
     @Override

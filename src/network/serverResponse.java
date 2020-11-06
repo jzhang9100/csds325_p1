@@ -115,7 +115,7 @@ public class serverResponse implements Runnable {
             if (!rq.equals(FAVICON)) {
                 if (rq.equals(TEST1_HTML)) {
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/test1.html");
-                    postImg(index);
+                    postHTML(index, cookie, false);
                 } else if (rq.equals(TEST2_HTML)) {
                     index = new File("/home/cxz416/csds325_p1/src/static/misc/test2.html");
                     postHTML(index, cookie, false);
@@ -140,6 +140,7 @@ public class serverResponse implements Runnable {
 
             out.println(OK);
             out.println(htmlType);
+            out.println(closed);
             out.println("Content-Length: " + index.length());
             out.write(ENDLINE);
             out.flush();
@@ -165,6 +166,7 @@ public class serverResponse implements Runnable {
         BufferedReader reader = new BufferedReader(new FileReader(index));
         out.println(OK);
         out.println(htmlType);
+        out.println(closed);
         out.println("Content-Length: " + index.length());
         int cookie_cnt;
         if(my_cookie == null){
@@ -190,6 +192,7 @@ public class serverResponse implements Runnable {
         out.println(OK);
         System.out.println(NO);
         out.println(htmlType);
+        out.println(closed);
         out.println("Content-Length: " + ERROR_FILE.length());
         out.println(ENDLINE);
         String htmlLine = ERROR_READER.readLine();
