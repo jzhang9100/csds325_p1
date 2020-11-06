@@ -146,9 +146,11 @@ public class serverResponse implements Runnable {
         String[] cookies = cookie.split(" ");
         String my_cookie = null;
         for(String st : cookies){
-            if(st.substring(0, MY_COOKIE_HEADER.length()).equals(MY_COOKIE_HEADER)){
-                my_cookie = st;
-                break;
+            if(st.length() > MY_COOKIE_HEADER.length()) {
+                if (st.substring(0, MY_COOKIE_HEADER.length()).equals(MY_COOKIE_HEADER)) {
+                    my_cookie = st;
+                    break;
+                }
             }
         }
         BufferedReader reader = new BufferedReader(new FileReader(index));
