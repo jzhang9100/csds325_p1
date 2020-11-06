@@ -11,6 +11,7 @@ public class serverResponse implements Runnable {
     static final String VISITS_HTML = "/visits.html";
     static final String img = "/img/amazon.jpg";
     static final String FAVICON = "/favicon.ico";
+    static final String ID = "/cxz416";
 
     static final String VALID = "HostNameValid";
     static final String INVALID = "HostNameInvalid";
@@ -100,22 +101,28 @@ public class serverResponse implements Runnable {
 
     private void processRequest(String GET, String cookie) throws IOException {
         String rq = processGetRequestHeader(GET);
-        File index;
-        if(!rq.equals(FAVICON)) {
-            if (rq.equals(TEST1_HTML)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/misc/test1.html");
-                postHTML(index, cookie, false);
-            } else if (rq.equals(TEST2_HTML)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/misc/test2.html");
-                postHTML(index, cookie, false);
-            } else if (rq.equals(VISITS_HTML)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/misc/visits.html");
-                postHTML(index, cookie, true);
-            } else if (rq.equals(img)) {
-                index = new File("/home/cxz416/csds325_p1/src/static/img/amazon.jpg");
-                postImg(index);
-            } else {
-                postErrorPage();
+        if(!rq.substring(0,ID.length()).equals(ID)){
+            postErrorPage();
+        } else {
+            rq = rq.substring(ID.length());
+            System.out.println(rq);
+            File index;
+            if (!rq.equals(FAVICON)) {
+                if (rq.equals(TEST1_HTML)) {
+                    index = new File("/home/cxz416/csds325_p1/src/static/misc/test1.html");
+                    postHTML(index, cookie, false);
+                } else if (rq.equals(TEST2_HTML)) {
+                    index = new File("/home/cxz416/csds325_p1/src/static/misc/test2.html");
+                    postHTML(index, cookie, false);
+                } else if (rq.equals(VISITS_HTML)) {
+                    index = new File("/home/cxz416/csds325_p1/src/static/misc/visits.html");
+                    postHTML(index, cookie, true);
+                } else if (rq.equals(img)) {
+                    index = new File("/home/cxz416/csds325_p1/src/static/img/amazon.jpg");
+                    postImg(index);
+                } else {
+                    postErrorPage();
+                }
             }
         }
     }
