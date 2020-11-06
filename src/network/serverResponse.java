@@ -129,15 +129,22 @@ public class serverResponse implements Runnable {
         }
     }
     private void postImg(File index) {
+        FileInputStream imgIn = null;
+        byte[] imgData = new byte[(int)index.length()];
         try {
-            BufferedImage bImage = ImageIO.read(index);
+            imgIn = new FileInputStream(index);
+            imgIn.read(imgData);
+
+            BufferedOutputStream imgOut = new BufferedOutputStream(connectionSocket.getOutputStream());
+            imgOut.write(imgData, 0, (int)index.length());
+            imgOut.flush();
+            /*
             out.println(OK);
             out.println(imgType);
             out.println("Content-Length: " + index.length());
             out.println(ENDLINE);
-            out.println(bImage);
-            System.out.println(index);
-            out.close();
+            out.close();*/
+
         } catch (IOException e){
             e.printStackTrace();
         }
