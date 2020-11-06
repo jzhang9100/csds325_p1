@@ -141,9 +141,10 @@ public class serverResponse implements Runnable {
             out.println(OK);
             out.println(imgType);
             out.println("Content-Length: " + index.length());
-            imgOut.write(imgData, 0, (int)index.length());
-            imgOut.flush();
+            out.write(ENDLINE);
             out.close();
+            imgOut.write(imgData, 0, (int)index.length());
+            imgOut.close();
 
         } catch (IOException e){
             e.printStackTrace();
