@@ -52,7 +52,7 @@ public class serverResponse implements Runnable {
             protocol = new netProtocol();
             while (true) {
                 inMessage = in.readLine();
-                //System.out.println(inMessage);
+                System.out.println(inMessage);
                 if(inMessage == null){
                     break;
                 }
